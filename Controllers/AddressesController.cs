@@ -1,0 +1,14 @@
+using System.Data.Common;
+using Microsoft.AspNetCore.Mvc;
+
+[ApiController]
+[Route("api/[controller]")]
+public class AddressesController : ControllerBase
+{
+    private Db _db;
+    public AddressesController(Db db)
+    {
+        _db = db;
+    }
+
+}
