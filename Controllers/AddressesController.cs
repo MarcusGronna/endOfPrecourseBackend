@@ -11,4 +11,9 @@ public class AddressesController : ControllerBase
         _db = db;
     }
 
+    [HttpGet]
+    public List<Address> GetAllAddresses()
+    {
+        return _db.Addresses;
+    }
 }
