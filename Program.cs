@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.OpenApi.Models;
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -17,6 +19,17 @@ builder.Services.AddSwaggerGen(x =>
         Version = "1.0"
     }
 ));
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                        policy =>
+                        {
+                            policy.WithOrigins("http://localhost:5500",
+                             "http://127.0.0.1:5500"
+                            );
+                        });
+
+});
 
 
 var app = builder.Build();
@@ -39,5 +52,7 @@ app.UseSwaggerUI();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.Run();
