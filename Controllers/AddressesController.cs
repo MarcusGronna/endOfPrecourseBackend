@@ -24,9 +24,19 @@ public class AddressesController : ControllerBase
         return _db.Addresses.Find(address => address.Id == id);
     }
 
-    // [HttpPost]
-    // public IActionResult CreateNewAddress(CreateAddressRequest request)
-    // {
-    //     return CreatedAtAction(nameof(GetAddressById) );
-    // }
+    [HttpPost]
+    public IActionResult CreateNewAddress(CreateAddressRequest request)
+    {
+        var nextId = _db.Addresses.Count + 1;
+        var newAddress = new Address()
+        {
+            Id = nextId,
+            City = request.City,
+            Street = request.Street,
+            StreetNumber = request.StreetNumber
+        };
+        _db.Addresses.Add(newAddress);
+
+        return CreatedAtAction(nameof(GetAddressById), new { id = nextId }, newAddress);
+    }
 }
