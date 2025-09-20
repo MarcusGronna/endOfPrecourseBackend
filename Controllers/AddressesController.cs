@@ -39,4 +39,12 @@ public class AddressesController : ControllerBase
 
         return CreatedAtAction(nameof(GetAddressById), new { id = nextId }, newAddress);
     }
+
+    [HttpDelete]
+    public IActionResult DeleteAddressById(int id)
+    {
+        var AddressToDelete = _db.Addresses.Find(address => address.Id == id);
+        _db.Addresses.Remove(AddressToDelete);
+        return CreatedAtAction(nameof(GetAddressById), new { id = AddressToDelete.Id }, AddressToDelete);
+    }
 }
