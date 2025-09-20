@@ -19,8 +19,14 @@ public class AddressesController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public Address? GetAddress(int id)
+    public Address? GetAddressById(int id)
     {
         return _db.Addresses.Find(address => address.Id == id);
     }
+
+    // [HttpPost]
+    // public IActionResult CreateNewAddress(CreateAddressRequest request)
+    // {
+    //     return CreatedAtAction(nameof(GetAddressById) );
+    // }
 }
