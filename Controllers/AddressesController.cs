@@ -43,8 +43,20 @@ public class AddressesController : ControllerBase
     [HttpDelete]
     public IActionResult DeleteAddressById(int id)
     {
-        var AddressToDelete = _db.Addresses.Find(address => address.Id == id);
-        _db.Addresses.Remove(AddressToDelete);
-        return CreatedAtAction(nameof(GetAddressById), new { id = AddressToDelete.Id }, AddressToDelete);
+        try
+        {
+            var AddressToDelete = _db.Addresses.Find(address => address.Id == id);
+
+            _db.Addresses.Remove(AddressToDelete);
+            return CreatedAtAction(nameof(GetAddressById), new { id = AddressToDelete.Id }, AddressToDelete);
+        }
+        catch (NullReferenceException ex)
+        {
+            return NotFound();
+        }
+        catch (InvalidOperationException ex)
+        {
+            return NotFound();
+        }
     }
 }
