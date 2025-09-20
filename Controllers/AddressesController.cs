@@ -38,7 +38,7 @@ public class AddressesController : ControllerBase
         return CreatedAtAction(nameof(GetAddressById), new { id = nextId }, newAddress);
     }
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     public IActionResult DeleteAddressById(int id)
     {
         try
