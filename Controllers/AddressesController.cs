@@ -1,6 +1,4 @@
-using System.Data.Common;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 
 [ApiController]
 [Route("api/[controller]")]
