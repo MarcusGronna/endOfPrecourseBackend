@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -37,6 +39,44 @@ public class AddressesController : ControllerBase
 
         return CreatedAtAction(nameof(GetAddressById), new { id = nextId }, newAddress);
     }
+
+
+    [HttpPatch("{id}")] // https://learn.microsoft.com/en-us/aspnet/core/web-api/jsonpatch?view=aspnetcore-9.0
+    public async Task<IActionResult> PatchAddress(
+        int id,
+        [FromBody] JsonPatchDocument<Address> patchDoc)
+    {
+        if (patchDoc != null)
+        {
+            var address = _db.Addresses.Find(addr => addr.Id == id);
+
+            patchDoc.ApplyTo(address, ModelState);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            return new ObjectResult(address);
+        }
+        else
+        {
+            return BadRequest(ModelState);
+        }
+
+    }
+
+
+
+    // [HttpPatch("{id}")]
+    // public IActionResult UpdateAddressById(int id, UpdateAddressRequest request)
+    // {
+    //     var addressToUpdate = _db.Addresses.Find(address => address.Id == id);
+    //     addressToUpdate
+
+    //     return CreatedAtAction(nameof(GetAddressById), id, addressToUpdate);
+    // }
+
 
     [HttpDelete("{id}")]
     public IActionResult DeleteAddressById(int id)
