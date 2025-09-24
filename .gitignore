@@ -1,0 +1,42 @@
+# .NET build output
+bin/
+obj/
+Debug/
+Release/
+publish/
+out/
+
+# Test & coverage
+TestResults/
+*.coverage
+*.coveragexml
+coverage/
+
+# IDE/Editor
+.vs/
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+
+# NuGet artifacts
+*.nupkg
+*.snupkg
+project.lock.json
+project.assets.json
+
+# SSL / secrets / local settings
+*.pfx
+secrets.json
+appsettings.*.local.json
+
+# SQLite (lokal DB ska ej versioneras)
+*.db
+
+# Misc
+*.pidb
+*.svclog
